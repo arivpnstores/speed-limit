@@ -11,3 +11,9 @@ Jika kamu ingin menghapus limit yang sudah diterapkan, jalankan perintah berikut
 ```bash
 wondershaper clear $(ip route | grep default | awk '{print $5}' | head -n 1) && systemctl disable wondershaper
 ```
+
+## SPEEDTEST
+Jika mau mengecek kecepatan server
+```bash
+bash <(curl -s https://raw.githubusercontent.com/arivpnstores/v4/main/Cdy/speedtest)
+```
