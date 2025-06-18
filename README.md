@@ -15,5 +15,5 @@ wondershaper clear $(ip route | grep default | awk '{print $5}' | head -n 1) && 
 ## SPEEDTEST
 Jika mau mengecek kecepatan server
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/arivpnstores/v4/main/Cdy/speedtest)
+wget https://raw.githubusercontent.com/arivpnstores/v4/main/Cdy/speedtest -O /usr/bin/speedtest && chmod +x /usr/bin/speedtest && /usr/bin/speedtest
 ```
