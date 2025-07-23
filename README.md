@@ -5,6 +5,11 @@ Jalankan perintah di bawah ini untuk membatasi kecepatan jaringan (upload & down
 bash <(curl -s https://raw.githubusercontent.com/arivpnstores/speed-limit/main/wondershaper.sh)
 ```
 
+Perintah Mengecek Limit menggunakan wondershaper:
+```bash
+bash <(curl -s https://raw.githubusercontent.com/arivpnstores/speed-limit/main/monitor-limit.sh)
+```
+
 ## ❌ Menghapus Limit
 
 Jika kamu ingin menghapus limit yang sudah diterapkan, jalankan perintah berikut:
