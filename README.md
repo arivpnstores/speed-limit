@@ -14,7 +14,7 @@ bash <(curl -s https://raw.githubusercontent.com/arivpnstores/speed-limit/main/m
 
 Jika kamu ingin menghapus limit yang sudah diterapkan, jalankan perintah berikut:
 ```bash
-wondershaper clear $(ip route | grep default | awk '{print $5}' | head -n 1) && systemctl disable wondershaper
+systemctl stop wondershaper && systemctl disable wondershaper && for i in $(ls /sys/class/net); do wondershaper clear $i 2>/dev/null && echo "✅ Cleared $i"; done
 ```
 
 ## SPEEDTEST
