@@ -5,6 +5,11 @@ Jalankan perintah di bawah ini untuk membatasi kecepatan jaringan (upload & down
 bash <(curl -s https://raw.githubusercontent.com/arivpnstores/speed-limit/main/wondershaper.sh)
 ```
 
+Jalankan perintah di bawah ini untuk membatasi kecepatan jaringan (upload & download) pada VPS Ubuntu 20.04–24.10 dan Debian 10–12 menggunakan wondershaper sesuai ram vps :
+```bash
+bash <(curl -s https://raw.githubusercontent.com/arivpnstores/speed-limit/main/wondershaper.sh)
+```
+
 Perintah Mengecek Limit menggunakan wondershaper:
 ```bash
 bash <(curl -s https://raw.githubusercontent.com/arivpnstores/speed-limit/main/monitor-limit.sh)
