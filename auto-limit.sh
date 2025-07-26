@@ -21,12 +21,10 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-# Install wondershaper jika belum ada
-if ! command -v wondershaper &> /dev/null; then
+# Install wondershaper 
     apt --fix-broken install
     apt update -y
     apt install -y wondershaper
-fi
 
 # Ambil interface, RAM, dan CPU core
 IFACE=$(get_interface)
