@@ -5,9 +5,14 @@ get_interface() {
     ip route | grep default | awk '{print $5}' | head -n 1
 }
 
-# Fungsi: Deteksi total RAM dalam GB
+# Fungsi: Deteksi total RAM dalam GB (dibulatkan)
 get_ram_gb() {
-awk '/MemTotal/ {printf "%.0f", ($2 / 1024 / 1024) + 0.5}' /proc/meminfo
+    awk '/MemTotal/ {printf "%.0f", int(($2 + 1048575) / 1048576)}' /proc/meminfo
+}
+
+# Fungsi: Deteksi jumlah CPU core
+get_cpu_core() {
+    nproc
 }
 
 # Pastikan dijalankan sebagai root
@@ -23,37 +28,32 @@ if ! command -v wondershaper &> /dev/null; then
     apt install -y wondershaper
 fi
 
-# Ambil interface
+# Ambil interface, RAM, dan CPU core
 IFACE=$(get_interface)
+RAM_GB=$(get_ram_gb)
+CPU_CORE=$(get_cpu_core)
+
 if [ -z "$IFACE" ]; then
     echo "❌ Tidak dapat mendeteksi interface jaringan."
     exit 1
 fi
 
-# Ambil RAM VPS dalam GB
-RAM_GB=$(get_ram_gb)
-
-# Tentukan limit berdasarkan RAM (Mbps)
-if [ "$RAM_GB" -eq 1 ]; then
-    DL_MBPS=200
-    UL_MBPS=100
-elif [ "$RAM_GB" -eq 2 ]; then
-    DL_MBPS=300
-    UL_MBPS=150
-elif [ "$RAM_GB" -eq 4 ]; then
-    DL_MBPS=500
-    UL_MBPS=250
-elif [ "$RAM_GB" -eq 8 ]; then
-    DL_MBPS=800
-    UL_MBPS=400
-elif [ "$RAM_GB" -gt 8 ]; then
-    DL_MBPS=1000
-    UL_MBPS=500
-else
-    echo "⚠️ RAM tidak dikenali. Menggunakan limit default 200 Mbps / 100 Mbps"
-    DL_MBPS=200
-    UL_MBPS=100
-fi
+# Tentukan limit berdasarkan kombinasi RAM & CPU
+case "${CPU_CORE}_${RAM_GB}" in
+    1_1)
+        DL_MBPS=200; UL_MBPS=100 ;;
+    1_2)
+        DL_MBPS=300; UL_MBPS=150 ;;
+    2_2)
+        DL_MBPS=500; UL_MBPS=250 ;;
+    2_4)
+        DL_MBPS=800; UL_MBPS=400 ;;
+    *_8)
+        DL_MBPS=1000; UL_MBPS=500 ;;
+    *)
+        echo "⚠️ Kombinasi RAM/CPU tidak dikenali. Gunakan default 200/100 Mbps"
+        DL_MBPS=200; UL_MBPS=100 ;;
+esac
 
 # Konversi ke Kbps
 DL_KBPS=$((DL_MBPS * 1000))
@@ -83,5 +83,5 @@ systemctl daemon-reload
 systemctl enable wondershaper
 systemctl start wondershaper
 
-echo "✅ Speed limit diterapkan berdasarkan RAM VPS ($RAM_GB GB)"
+echo "✅ Speed limit diterapkan berdasarkan RAM ${RAM_GB}GB & CPU ${CPU_CORE} core"
 echo "⬇️ Download: $DL_MBPS Mbps | ⬆️ Upload: $UL_MBPS Mbps pada interface $IFACE"
