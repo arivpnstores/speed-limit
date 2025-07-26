@@ -11,10 +11,12 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-# Update & install wondershaper
-apt --fix-broken install
-apt update -y
-apt install -y wondershaper
+# Install wondershaper jika belum ada
+if ! command -v wondershaper &> /dev/null; then
+    apt --fix-broken install
+    apt update -y
+    apt install -y wondershaper
+fi
 
 # Ambil interface
 IFACE=$(get_interface)
