@@ -7,7 +7,7 @@ get_interface() {
 
 # Fungsi: Deteksi total RAM dalam GB
 get_ram_gb() {
-    awk '/MemTotal/ {printf "%.0f", $2 / 1024 / 1024}' /proc/meminfo
+awk '/MemTotal/ {printf "%.0f", ($2 / 1024 / 1024) + 0.5}' /proc/meminfo
 }
 
 # Pastikan dijalankan sebagai root
