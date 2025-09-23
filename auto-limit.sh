@@ -39,18 +39,18 @@ fi
 # Tentukan limit berdasarkan kombinasi RAM & CPU
 case "${CPU_CORE}_${RAM_GB}" in
     1_1)
-        DL_MBPS=200; UL_MBPS=200 ;;
+        DL_MBPS=600; UL_MBPS=600 ;;
     1_2)
-        DL_MBPS=300; UL_MBPS=300 ;;
+        DL_MBPS=700; UL_MBPS=700 ;;
     2_2)
-        DL_MBPS=500; UL_MBPS=500 ;;
+        DL_MBPS=800; UL_MBPS=800 ;;
     2_4)
-        DL_MBPS=800; UL_MBPS=800;;
+        DL_MBPS=900; UL_MBPS=900;;
     *_8)
         DL_MBPS=1000; UL_MBPS=1000 ;;
     *)
         echo "⚠️ Kombinasi RAM/CPU tidak dikenali. Gunakan default 200/100 Mbps"
-        DL_MBPS=200; UL_MBPS=100 ;;
+        DL_MBPS=1000; UL_MBPS=1000 ;;
 esac
 
 # Konversi ke Kbps
