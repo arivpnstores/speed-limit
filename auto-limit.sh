@@ -28,7 +28,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Install wondershaper 
-    apt --fix-broken install
+    apt --fix-broken install -y
     apt update -y
     apt install -y wondershaper
 
