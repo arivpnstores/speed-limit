@@ -1,4 +1,10 @@
 #!/bin/bash
+#fix
+dpkg-statoverride --list | grep Debian-exim
+dpkg-statoverride --remove /path/yangsalah
+sed -i '/Debian-exim/d' /var/lib/dpkg/statoverride
+dpkg --configure -a
+apt-get install -f
 
 # Fungsi: Deteksi interface utama
 get_interface() {
