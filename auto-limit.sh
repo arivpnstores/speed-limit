@@ -45,18 +45,18 @@ fi
 # Tentukan limit berdasarkan kombinasi RAM & CPU
 case "${CPU_CORE}_${RAM_GB}" in
     1_1)
-        DL_MBPS=600; UL_MBPS=600 ;;
+        DL_MBPS=300; UL_MBPS=300 ;;   # pas buat user sedikit, stabil
     1_2)
-        DL_MBPS=700; UL_MBPS=700 ;;
+        DL_MBPS=500; UL_MBPS=500 ;;   # cocok buat tunneling personal
     2_2)
-        DL_MBPS=800; UL_MBPS=800 ;;
+        DL_MBPS=700; UL_MBPS=700 ;;   # 5-10 user masih aman
     2_4)
-        DL_MBPS=900; UL_MBPS=900;;
-    *_8)
-        DL_MBPS=1000; UL_MBPS=1000 ;;
+        DL_MBPS=900; UL_MBPS=900 ;;   # ramean, masih wuss
+    4_8|*_8)
+        DL_MBPS=1200; UL_MBPS=1200 ;; # server gede, bisa pull max
     *)
-        echo "⚠️ Kombinasi RAM/CPU tidak dikenali. Gunakan default 200/100 Mbps"
-        DL_MBPS=1000; UL_MBPS=1000 ;;
+        echo "⚠️ Kombinasi RAM/CPU tidak dikenali. Gunakan default aman 200/200 Mbps"
+        DL_MBPS=200; UL_MBPS=200 ;;
 esac
 
 # Konversi ke Kbps
