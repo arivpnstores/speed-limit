@@ -9,25 +9,31 @@ NORMAL_SPEED="100gbit"              # speed normal 100Gbps
 LIMIT_SPEED="50gbit"                # speed saat over limit 50Gbps
 LOG_FILE="/var/log/bw_limit.log"
 DATE=$(date '+%Y-%m-%d %H:%M:%S')
+HOUR=$(date '+%H')
 
 # =========================
 # FUNCTION: APPLY LIMIT USING TC
 # =========================
 apply_tc() {
     local SPEED=$1
-
-    # Hapus qdisc lama
     sudo tc qdisc del dev $IFACE root 2>/dev/null
-
-    # Tambahkan qdisc baru
     sudo tc qdisc add dev $IFACE root tbf rate $SPEED burst 100mb latency 50ms
 }
 
 # =========================
+# RESET SPEED TENGAH MALAM
+# =========================
+if [[ "$HOUR" == "00" ]]; then
+    apply_tc $NORMAL_SPEED
+    MESSAGE="$DATE: Reset speed ke normal 100Gbps (tengah malam)"
+    echo -e "$MESSAGE"
+    echo "$MESSAGE" >> $LOG_FILE
+    exit 0
+fi
+
+# =========================
 # GET TRAFFIC USAGE
 # =========================
-# Pastikan vnstat sudah terinstall dan update database
-# Install: sudo apt install vnstat -y
 USAGE=$(vnstat --oneline b | awk -F\; '{print $9+$10}')
 
 # =========================
@@ -35,8 +41,14 @@ USAGE=$(vnstat --oneline b | awk -F\; '{print $9+$10}')
 # =========================
 if (( $(echo "$USAGE > $LIMIT" | bc -l) )); then
     apply_tc $LIMIT_SPEED
-    echo "$DATE: Over limit! Penggunaan hari ini $USAGE GiB > 1TB. Speed diturunkan ke $LIMIT_SPEED" >> $LOG_FILE
+    MESSAGE="$DATE: Over limit! Penggunaan hari ini $USAGE GiB > 1TB. Speed diturunkan ke $LIMIT_SPEED"
 else
     apply_tc $NORMAL_SPEED
-    echo "$DATE: Penggunaan hari ini $USAGE GiB, speed normal $NORMAL_SPEED" >> $LOG_FILE
+    MESSAGE="$DATE: Penggunaan hari ini $USAGE GiB, speed normal $NORMAL_SPEED"
 fi
+
+# =========================
+# OUTPUT & LOG
+# =========================
+echo -e "$MESSAGE"
+echo "$MESSAGE" >> $LOG_FILE
