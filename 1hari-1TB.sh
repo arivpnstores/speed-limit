@@ -16,8 +16,8 @@ HOUR=$(date '+%H')
 # =========================
 apply_tc() {
     local SPEED=$1
-    sudo tc qdisc del dev $IFACE root 2>/dev/null
-    sudo tc qdisc add dev $IFACE root tbf rate $SPEED burst 100mb latency 50ms
+    tc qdisc del dev $IFACE root 2>/dev/null
+    tc qdisc add dev $IFACE root tbf rate $SPEED burst 100mb latency 50ms
 }
 
 # =========================
