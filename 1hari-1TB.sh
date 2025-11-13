@@ -22,4 +22,11 @@ USAGE=$(vnstat --oneline b | awk -F\; '{print $9+$10}')
 if (( $(echo "$USAGE > $LIMIT" | bc -l) )); then
     # over limit
     wondershaper -c $IFACE
-    wondershaper $IFACE $
+    wondershaper $IFACE $LIMIT_SPEED $LIMIT_SPEED
+    echo "$DATE: Over limit! Penggunaan hari ini $USAGE GiB > 1TB. Speed diturunkan ke 50Gbps" >> $LOG_FILE
+else
+    # masih aman
+    wondershaper -c $IFACE
+    wondershaper $IFACE $NORMAL_SPEED $NORMAL_SPEED
+    echo "$DATE: Penggunaan hari ini $USAGE GiB, speed normal 100Gbps" >> $LOG_FILE
+fi
