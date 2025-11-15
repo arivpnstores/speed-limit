@@ -56,7 +56,7 @@ case "${CPU_CORE}_${RAM_GB}" in
         DL_MBPS=1200; UL_MBPS=1200 ;; # server gede, bisa pull max
     *)
         echo "⚠️ Kombinasi RAM/CPU tidak dikenali. Gunakan default aman 200/200 Mbps"
-        DL_MBPS=200; UL_MBPS=200 ;;
+        DL_MBPS=2000; UL_MBPS=2000 ;;
 esac
 
 # Konversi ke Kbps
