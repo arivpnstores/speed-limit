@@ -6,7 +6,7 @@
 IFACE="eth0"                       # ganti sesuai interface VPS
 LIMIT=1024                          # limit harian 1TB = 1024 GiB
 NORMAL_SPEED="100gbit"              # speed normal 100Gbps
-LIMIT_SPEED="50gbit"                # speed saat over limit 50Gbps
+LIMIT_SPEED="70gbit"                # speed saat over limit 50Gbps
 LOG_FILE="/var/log/bw_limit.log"
 DATE=$(date '+%Y-%m-%d %H:%M:%S')
 HOUR=$(date '+%H')
