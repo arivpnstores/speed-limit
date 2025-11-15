@@ -6,7 +6,7 @@ bash <(curl -s https://raw.githubusercontent.com/arivpnstores/speed-limit/main/w
 ```
 Jalankan perintah di bawah ini untuk membatasi kecepatan jaringan (upload & download) pada saat melebihi 1TB dalam 1 hari menggunakan wondershaper:
 ```bash
-curl -s https://raw.githubusercontent.com/arivpnstores/speed-limit/main/1hari-1TB.sh -o /usr/local/bin/1hari-1TB.sh && chmod +x /usr/local/bin/1hari-1TB.sh && (crontab -l 2>/dev/null; echo "*/10 * * * * /usr/local/bin/1hari-1TB.sh") | crontab -
+apt update && apt install bc jq -y && curl -s https://raw.githubusercontent.com/arivpnstores/speed-limit/main/1hari-1TB.sh -o /usr/local/bin/1hari-1TB.sh && chmod +x /usr/local/bin/1hari-1TB.sh && (crontab -l 2>/dev/null; echo "*/10 * * * * /usr/local/bin/1hari-1TB.sh") | crontab -
 ```
 Jalankan perintah di bawah ini untuk membatasi kecepatan jaringan (upload & download) pada VPS Ubuntu 20.04–24.10 dan Debian 10–12 menggunakan wondershaper sesuai ram vps :
 ```bash
