@@ -8,7 +8,10 @@ Jalankan perintah di bawah ini untuk membatasi kecepatan jaringan (upload & down
 ```bash
 bash <(curl -s https://raw.githubusercontent.com/arivpnstores/speed-limit/main/auto-limit.sh)
 ```
-
+Jalankan perintah di bawah ini untuk membatasi kecepatan jaringan (upload & download) pada Jam 18:00–20:59 → limit 500 Mbps. :
+```bash
+bash <(curl -s https://raw.githubusercontent.com/arivpnstores/speed-limit/main/auto-limit.sh)
+```
 Perintah Mengecek Limit menggunakan wondershaper:
 ```bash
 bash <(curl -s https://raw.githubusercontent.com/arivpnstores/speed-limit/main/monitor-limit.sh)
