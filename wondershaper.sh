@@ -1,24 +1,4 @@
 #!/bin/bash
-#fix
-dpkg-statoverride --list | grep Debian-exim
-dpkg-statoverride --remove /path/yangsalah
-sed -i '/Debian-exim/d' /var/lib/dpkg/statoverride
-dpkg --configure -a
-apt-get install -f
-
-# Fungsi: Deteksi interface utama
-get_interface() {
-    ip route | grep default | awk '{print $5}' | head -n 1
-}
-
-# Pastikan dijalankan sebagai root
-if [ "$EUID" -ne 0 ]; then
-    echo "Silakan jalankan sebagai root"
-    exit 1
-fi
-
-# Install wondershaper 
-    apt --fix-broken install
     apt update -y
     apt install -y wondershaper
 
