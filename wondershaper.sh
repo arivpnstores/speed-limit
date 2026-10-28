@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Fungsi: Deteksi interface utama
+get_interface() {
+    ip route | grep default | awk '{print $5}' | head -n 1
+}
+
 if ! command -v wondershaper >/dev/null 2>&1; then
     apt update -y
     apt install -y wondershaper
