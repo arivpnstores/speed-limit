@@ -1,6 +1,9 @@
 #!/bin/bash
+
+if ! command -v wondershaper >/dev/null 2>&1; then
     apt update -y
     apt install -y wondershaper
+fi
 
 # Ambil interface
 IFACE=$(get_interface)
